@@ -25,11 +25,11 @@ This will take about 10 minutes to get the instances started. Once it is complet
 
 ## Launch an Management Bastion with AWS CLI
 ```
-aws cloudformation deploy --stack-name myShedulerConsole01 --parameter-overrides Ami=ami-428aa838 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
+aws cloudformation deploy --stack-name myConsole01 --parameter-overrides Ami=ami-428aa838 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
 ```
 The autoscaling groups uses the CpuUtilization alarm to autoscale automatically. Because of this, you wouldn't have to bother making sure that your hosts can sustain the load.
 
-## Working examples
+## Working with examples
 ```
 export AWS_DEFAULT_REGION=us-east-1
 
@@ -46,4 +46,10 @@ scheduler-cli delete-schedule --name LondonWorkHours --stack mySheduler01
 scheduler-cli delete-period --name weekdays --stack mySheduler01
 ```
 
+## Remove all testing resources
+```
+aws cloudformation delete-stack  --stack mySheduler01
+
+aws cloudformation delete-stack  --stack myConsole01
+```
 

@@ -43,8 +43,7 @@ Resources:
           Fn::Sub: ${AWS::StackName}-Admin
         PolicyDocument:
           Statement:
-          - Action:
-            - *
+          - Action: "*"
             Resource: "*"
             Effect: Allow
 
