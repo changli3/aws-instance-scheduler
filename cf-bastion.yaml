@@ -1,0 +1,90 @@
+Parameters:
+  Ami:
+    Type: String
+    Description: Latest AWS Linux Ami in your AWS Region
+    Default: ami-1853ac65
+
+  InstanceType:
+    Type: String
+    Default: t2.small
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair to enable SSH access to instances
+
+  SubnetID1:
+    Type: AWS::EC2::Subnet::Id
+
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+
+Resources:
+  HostRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+            - dynamodb.amazonaws.com
+            - cloudformation.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyName:
+          Fn::Sub: ${AWS::StackName}-EC2
+        PolicyDocument:
+          Statement:
+          - Action:
+            - ec2:*
+            Resource: "*"
+            Effect: Allow
+      - PolicyName:
+          Fn::Sub: ${AWS::StackName}-DYN
+        PolicyDocument:
+          Statement:
+          - Action:
+            - dynamodb:*
+            Resource: "*"
+            Effect: Allow
+
+  HostProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+      - Ref: HostRole
+
+  Bastion:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Ref: Ami
+      BlockDeviceMappings:
+      - DeviceName: /dev/sda1
+        Ebs:
+          VolumeSize: 20
+          VolumeType: gp2
+      InstanceType:
+        Ref: InstanceType
+      IamInstanceProfile:
+        Ref: HostProfile
+      SubnetId: !Ref SubnetID1
+      Tags:
+      - 
+        Key: Name
+        Value: SchedulerBastion
+      KeyName:
+        Ref: KeyName
+      SecurityGroupIds:
+      - Ref: SecurityGroupId
+      UserData:
+        Fn::Base64:
+          Fn::Sub: |
+            #cloud-config
+            runcmd:
+            - curl -s -L https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/install-bastion.sh | sudo bash
