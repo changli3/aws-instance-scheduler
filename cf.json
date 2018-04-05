@@ -83,7 +83,7 @@
         }, 
         "TagName": {
             "Type": "String", 
-            "Default": "Schedule", 
+            "Default": "RunSchedule", 
             "MinLength": 1, 
             "MaxLength": 127, 
             "Description": "Name of tag to use for associating instance schedule schemas with service instances."

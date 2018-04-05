@@ -29,24 +29,61 @@ aws cloudformation deploy --stack-name myConsole01 --parameter-overrides Ami=ami
 ```
 The autoscaling groups uses the CpuUtilization alarm to autoscale automatically. Because of this, you wouldn't have to bother making sure that your hosts can sustain the load.
 
-## Working with examples
+## Working with Console
+
+### Availabe cheduler-cli Commands
+* create-period
+* create-schedule
+* delete-period
+* delete-schedule
+* describe-periods
+* describe-schedules
+* describe-schedule-usage
+* update-period
+* update-schedule
+* help
+
 ```
 export AWS_DEFAULT_REGION=us-east-1
 
 scheduler-cli create-period --name "weekdays" --begintime 09:00 --endtime 18:00 --weekdays mon-fri --stack mySheduler01 
 
-scheduler-cli create-schedule --name LondonWorkHours --periods "weekdays,weekends" --timezone Europe/London --stack mySheduler01
+scheduler-cli create-schedule --name AmericaEastOfficeHours --periods "weekdays,weekends" --timezone America/NewYork --stack mySheduler01
 
 scheduler-cli describe-periods --stack mySheduler01
 
 scheduler-cli describe-schedules --stack mySheduler01
 
-scheduler-cli delete-schedule --name LondonWorkHours --stack mySheduler01
+scheduler-cli delete-schedule --name AmericaEastOfficeHours --stack mySheduler01
 
 scheduler-cli delete-period --name weekdays --stack mySheduler01
 ```
 
-## Remove all testing resources
+### Availabe tagging Commands
+* aws ec2 create-tags
+* aws ec2 delete-tags
+* aws ec2 describe-tags
+* aws rds create-tags
+* aws rds delete-tags
+* aws rds describe-tags
+
+
+```
+#tag instances with schedule AmericaEastOfficeHours
+aws ec2 create-tags --resources i-3fba6a96 i-5000b561 --tags "Key=RunSchedule,Value=AmericaEastOfficeHours"
+
+#check all instances with schedule AmericaEastOfficeHours
+aws ec2 describe-tags --filters "Name=key,Values=RunSchedule" "Name=value,Values=AmericaEastOfficeHours" "Name=resource-type,Values=instance"
+
+#delete all instances with schedule AmericaEastOfficeHours
+aws ec2 delete-tags --resources i-3fba6a96 i-5000b561 --tags Key=RunSchedule
+
+#check all instances with a schedule
+aws ec2 describe-tags --filters "Name=key,Values=RunSchedule" "Name=resource-type,Values=instance"
+
+```
+
+## Remove all testing resources after the lab
 ```
 aws cloudformation delete-stack  --stack mySheduler01
 
