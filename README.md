@@ -25,13 +25,25 @@ This will take about 10 minutes to get the instances started. Once it is complet
 
 ## Launch an Management Bastion with AWS CLI
 ```
-aws cloudformation deploy --stack-name myShedulerConsole01 --parameter-overrides Ami=ami-1853ac65 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
+aws cloudformation deploy --stack-name myShedulerConsole01 --parameter-overrides Ami=ami-428aa838 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
 ```
 The autoscaling groups uses the CpuUtilization alarm to autoscale automatically. Because of this, you wouldn't have to bother making sure that your hosts can sustain the load.
 
-## Stack Monitoring
+## Working examples
 ```
-scheduler-cli create-period --name "weekdays" --begintime 09:00 --endtime 18:00 --weekdays mon-fri --stack sheduler01 --regions us-east-1 
+export AWS_DEFAULT_REGION=us-east-1
+
+scheduler-cli create-period --name "weekdays" --begintime 09:00 --endtime 18:00 --weekdays mon-fri --stack mySheduler01 
+
+scheduler-cli create-schedule --name LondonWorkHours --periods "weekdays,weekends" --timezone Europe/London --stack mySheduler01
+
+scheduler-cli describe-periods --stack mySheduler01
+
+scheduler-cli describe-schedules --stack mySheduler01
+
+scheduler-cli delete-schedule --name LondonWorkHours --stack mySheduler01
+
+scheduler-cli delete-period --name weekdays --stack mySheduler01
 ```
 
 
