@@ -83,6 +83,25 @@ aws ec2 describe-tags --filters "Name=key,Values=RunSchedule" "Name=resource-typ
 
 ```
 
+## Batch tagging with csv file
+Create csv file like this - ("instance-id","schedule-name"):
+```
+i-3fba6a96,AmericaEastOfficeHours
+i-5000b561,AmericaEastOfficeHours
+```
+
+If the file is local (for examples: instance-tags.csv), run -
+```
+python tag-csv.py instance-tags.csv
+```
+
+If the file is remote (for examples: https://github.com/changli3/awsd-instance-scheduler/blob/master/instance-tags.csv), run -
+```
+./get-tag-csv.sh https://github.com/changli3/awsd-instance-scheduler/blob/master/instance-tags.csv
+```
+
+
+
 ## Remove all testing resources after the lab
 ```
 aws cloudformation delete-stack  --stack mySheduler01
