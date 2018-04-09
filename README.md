@@ -95,9 +95,9 @@ If the file is local (for examples: instance-tags.csv), run -
 python tag-csv.py instance-tags.csv
 ```
 
-If the file is remote (for examples: https://github.com/changli3/awsd-instance-scheduler/blob/master/instance-tags.csv), run -
+If the file is remote (for examples: https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/instance-tags.csv), run -
 ```
-./get-tag-csv.sh https://github.com/changli3/awsd-instance-scheduler/blob/master/instance-tags.csv
+./get-tag-csv.sh https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/instance-tags.csv
 ```
 
 

@@ -5,7 +5,8 @@ cd /home/ec2-user
 wget https://github.com/changli3/awsd-instance-scheduler/raw/master/scheduler-cli.zip
 unzip scheduler-cli.zip
 python ./setup.py install
-wget https://github.com/changli3/awsd-instance-scheduler/blob/master/tag-csv.py
-wget https://github.com/changli3/awsd-instance-scheduler/blob/master/get-tag-csv.sh
+
+wget https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/get-tag-csv.sh
+wget https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/tag-csv.py
 chmod +x ./get-tag-csv.sh
 

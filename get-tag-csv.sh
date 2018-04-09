@@ -5,4 +5,4 @@ fname="${filename%.*}"
 ext="${filename##*.}"
 curl -O $fullfilename
 
-python tag-csv.py $fname
+python tag-csv.py $filename
