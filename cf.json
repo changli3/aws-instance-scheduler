@@ -993,7 +993,7 @@
                 }, 
                 "Code": {
                     "S3Bucket": "workplace.gov", 
-                    "S3Key": "instance-scheduler-2.10.0.25.zip"
+                    "S3Key": "lambda-scheduler.zip"
                 }, 
                 "Handler": "main.lambda_handler", 
                 "Runtime": "python2.7", 
