@@ -993,7 +993,7 @@
                 }, 
                 "Code": {
                     "S3Bucket": "workplace.gov", 
-                    "S3Key": "instance-scheduler-2.10.0.25.zip"
+                    "S3Key": "lambda-scheduler.zip "
                 }, 
                 "Handler": "main.lambda_handler", 
                 "Runtime": "python2.7", 
@@ -1078,7 +1078,7 @@
                     "Ref": "MemorySize"
                 }, 
                 "Timeout": 300, 
-                "Description": "ECS and RDS instance scheduler, version 2.10.0.25"
+                "Description": "Modified based on AWS ECS and RDS instance scheduler, version 2.10.0.25"
             }, 
             "DependsOn": [
                 "SchedulerPolicy", 
