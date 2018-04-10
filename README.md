@@ -27,11 +27,11 @@ This will take about 10 minutes to get the instances started. Once it is complet
 ```
 aws cloudformation deploy --stack-name myConsole01 --parameter-overrides Ami=ami-428aa838 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
 ```
-The autoscaling groups uses the CpuUtilization alarm to autoscale automatically. Because of this, you wouldn't have to bother making sure that your hosts can sustain the load.
+This template launch a small Linux machine for you to manage the schedule if you do not already have a management machine. It installs scheduler-cli and provides some utility script, for examples, batch tagging of instances via a csv file.
 
 ## Working with Console
 
-### Availabe cheduler-cli Commands
+### Availabe scheduler-cli Commands
 * create-period
 * create-schedule
 * delete-period
