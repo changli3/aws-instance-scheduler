@@ -73,4 +73,4 @@ Resources:
           Fn::Sub: |
             #cloud-config
             runcmd:
-            - curl -s -L https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/install-bastion.sh | bash
+            - curl -s -L https://raw.githubusercontent.com/changli3/aws-instance-scheduler/master/install-bastion.sh | bash

@@ -7,9 +7,9 @@ The CloudFormation template and explanation is based on the [AWS Instance Schedu
 ## Run the Sheduler Stack CloudFormation template with AWS CLI
 
 ```
-git clone https://github.com/changli3/awsd-instance-scheduler.git
+git clone https://github.com/changli3/aws-instance-scheduler.git
 
-cd awsd-instance-scheduler
+cd aws-instance-scheduler
 
 aws cloudformation deploy --stack-name mySheduler01 --parameter-overrides Regions=us-east-1 CrossAccountRoles= --capabilities CAPABILITY_IAM --template-file cf.json 
 ```
@@ -95,9 +95,9 @@ If the file is local (for examples: instance-tags.csv), run -
 python tag-csv.py instance-tags.csv
 ```
 
-If the file is remote (for examples: https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/instance-tags.csv), run -
+If the file is remote (for examples: https://raw.githubusercontent.com/changli3/aws-instance-scheduler/master/instance-tags.csv), run -
 ```
-./get-tag-csv.sh https://raw.githubusercontent.com/changli3/awsd-instance-scheduler/master/instance-tags.csv
+./get-tag-csv.sh https://raw.githubusercontent.com/changli3/aws-instance-scheduler/master/instance-tags.csv
 ```
 
 
