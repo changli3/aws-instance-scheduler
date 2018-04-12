@@ -102,12 +102,12 @@
             "Description": "Comma separated list of ARN's for cross account access roles. These roles must be created in all checked accounts the scheduler to start and stop instances."
         }, 
         "StartedTags": {
-			"Default": "ScheduleStartMessage=Started on {year}/{month}/{day} at {hour}:{minute} by {scheduler}",
+         "Default": "ScheduleStartMessage=Started on {year}/{month}/{day} at {hour}:{minute} by {scheduler}",
             "Type": "String", 
             "Description": "Comma separated list of tagname and values on the formt name=value,name=value,.. that are set on started instances"
         }, 
         "StoppedTags": {
-			"Default": "ScheduleStopMessage=Stopped on {year}/{month}/{day} at {hour}:{minute} by {scheduler}",
+         "Default": "ScheduleStopMessage=Stopped on {year}/{month}/{day} at {hour}:{minute} by {scheduler}",
             "Type": "String", 
             "Description": "Comma separated list of tagname and values on the formt name=value,name=value,.. that are set on stopped instances"
         }, 
