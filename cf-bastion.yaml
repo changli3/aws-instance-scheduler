@@ -1,7 +1,7 @@
 Parameters:
   Ami:
     Type: String
-    Description: Latest AWS Linux Ami in your AWS Region
+    Description: Latest AWS Linux Ami in your AWS Region by chang.li3@treasury.gov
     Default: ami-428aa838
 
   InstanceType:

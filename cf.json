@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09", 
-    "Description": "AWS Instance scheduler, version 2.10.0.25", 
+    "Description": "AWS Instance scheduler, version 2.10.0.25 - modified by chang.li3@treasury.gov", 
     "Parameters": {
         "SchedulingActive": {
             "Type": "String", 
