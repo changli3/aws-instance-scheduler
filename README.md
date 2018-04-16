@@ -55,7 +55,7 @@ export AWS_DEFAULT_REGION=us-east-1
 
 scheduler-cli create-period --name "weekdays" --begintime 09:00 --endtime 18:00 --weekdays mon-fri --stack mySheduler01 
 
-scheduler-cli create-schedule --name AmericaEastOfficeHours --periods "weekdays,weekends" --timezone US/Eastern --stack mySheduler01
+scheduler-cli create-schedule --name AmericaEastOfficeHours --periods "weekdays,weekends" --timezone US/Eastern --stack mySheduler01 --overrides
 
 scheduler-cli describe-periods --stack mySheduler01
 
