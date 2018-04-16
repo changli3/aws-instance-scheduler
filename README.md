@@ -14,6 +14,11 @@ cd aws-instance-scheduler
 aws cloudformation deploy --stack-name mySheduler01 --parameter-overrides Regions=us-east-1 CrossAccountRoles= --capabilities CAPABILITY_IAM --template-file cf.json 
 ```
 
+For gov-cloud, use this cf-gov.yaml -
+```
+aws cloudformation deploy --stack-name mySheduler01 --parameter-overrides Regions=us-gov-west-1 CrossAccountRoles= --capabilities CAPABILITY_IAM --template-file cf-gov.json 
+```
+
 This will take about 10 minutes to get the instances started. Once it is completed, you can check for following resources:
 * CF Stack
 * DynamoDB
@@ -27,7 +32,9 @@ This will take about 10 minutes to get the instances started. Once it is complet
 ```
 aws cloudformation deploy --stack-name myConsole01 --parameter-overrides Ami=ami-428aa838 KeyName=TreaEBSLab VpcId=vpc-b3870dd6 SubnetID1=subnet-09f8ca52 SecurityGroupId=sg-58e1fc3d --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
 ```
-This template launch a small Linux machine for you to manage the schedule if you do not already have a management machine. It installs scheduler-cli and provides some utility script, for examples, batch tagging of instances via a csv file.
+
+
+This template launch a small Linux machine for you to manage the schedule if you do not already have a management machine. It installs scheduler-cli and provides some utility script, for examples, batch tagging of instances via a csv file. Please select an Amazon Linux AMI (login as ec2-user).
 
 ## Working with Console
 
@@ -101,7 +108,6 @@ If the file is remote (for examples: https://raw.githubusercontent.com/changli3/
 ```
 
 
-
 ## Remove all testing resources after the lab
 ```
 aws cloudformation delete-stack  --stack mySheduler01
@@ -109,3 +115,37 @@ aws cloudformation delete-stack  --stack mySheduler01
 aws cloudformation delete-stack  --stack myConsole01
 ```
 
+# Use in AWS GovCloud
+There are some glitches in the AWS GovCloud to load the Lambda from direct S3 sources. You have to manually upload the code from the lambda-scheduler.zip provided in this folder.
+
+## Steps
+
+### Step 1. Launch Sheduler Stack CloudFormation
+
+```
+aws cloudformation deploy --stack-name mySheduler01 --parameter-overrides Regions=us-gov-west-1 CrossAccountRoles= --capabilities CAPABILITY_IAM --template-file cf-gov-01.json  
+```
+
+### Step 2. Upload the Lambda Code
+This is a manual step - please go to lambda function and find the function created by the CloudFormation and upload the code from zip file lambda-scheduler.zip and click on save.
+
+### Step 3. Launch Sheduler Provision CloudFormation Stack
+
+```
+aws cloudformation deploy --stack-name mySheduler01-02 --parameter-overrides Regions=us-gov-west-1 CrossAccountRoles=  LambdaArn="ArnOfYourNewLambdaFunction" ConfigTable="ArnOfYourNewDynamoDBConfigTable" --template-file cf-gov-02.json
+```
+
+### Step 4. Launch an Management Bastion with AWS CLI
+```
+aws cloudformation deploy --stack-name myConsole01 --parameter-overrides Ami=ami-b2d056d3 KeyName=govTestKey VpcId=vpc-7808751d SubnetID1=subnet-22293555 SecurityGroupId=sg-8ef93bea --capabilities CAPABILITY_IAM --template-file cf-bastion.yaml 
+```
+
+Please use your parameter and select an Amazon Linux AMI in the GovCloud and make sure the subnet has default internet access when launch new instances.
+
+### Step 5. Logon to the Console
+
+```
+export AWS_DEFAULT_REGION=us-gov-west-1
+```
+
+The remaining operation is same as the above in the public cloud.
